@@ -17,8 +17,8 @@ class Ball:
         self.ball.color(color)
         self.ball.penup()
         self.ball.goto(0, 0)
-        self.dx_ini = 3
-        self.dy_ini = 3
+        self.dx_ini = 1
+        self.dy_ini = 1
         self.ball.dx = self.dx_ini
         self.ball.dy = self.dy_ini
         self.wn = wn
@@ -43,8 +43,9 @@ class Ball:
         self.check_border()
 
     def setxy(self):
-        self.setx()
-        self.sety()
+        self.ball.goto((self.xcor + self.dx, self.ycor + self.dy))
+        #self.setx()
+        #self.sety()
 
     def check_border(self):
         if self.ycor > (self.height / 2) - 10:
@@ -62,7 +63,7 @@ class Ball:
             self.jogo.vitoria('direita')
 
     def check_colision_padle_right(self):
-        speed = 0.5
+        speed = 0.2
         if (self.xcor > self.padle_right.xcor - 20) and (
                 self.ycor <= self.padle_right.ycor + 50
                 and self.ycor >= self.padle_right.ycor - 50):
@@ -73,7 +74,7 @@ class Ball:
             return True
 
     def check_colison_padle_left(self):
-        speed = 0.5
+        speed = 0.2
         if (self.xcor <= self.padle_left.xcor + 20) and (
                 self.ycor <= self.padle_left.ycor + 50
                 and self.ycor >= self.padle_left.ycor - 50):

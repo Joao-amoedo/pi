@@ -33,7 +33,7 @@ class Jogo:
         while True:
             self.wn.update()
             ball.setxy()
-
+            ball.check_border()
             if ball.check_colision_padle_right():
                 score1 += 100
                 scores.clear()
@@ -57,7 +57,7 @@ class Jogo:
     def vitoria(self, vencedor):
         self.clear_screen()
         Write('Jogador da {} venceu'.format(vencedor), (0, 0), align='center')
-        time.sleep(5)
+        time.sleep(2)
         self.menu()
 
     def menu(self):
