@@ -4,7 +4,7 @@ from jogo import Jogo
 
 
 def main():
-    Jogo()    
+    Jogo()
 
 
 if __name__ == '__main__':
