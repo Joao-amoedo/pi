@@ -22,12 +22,12 @@ class Paddle:
 
     def move_up(self):
         y = self.ycor + 20
-        if y + 20 < self.height:
+        if y + 50 < (self.height/ 2):
             self.paddle.sety(y)
 
     def move_down(self):
         y = self.ycor - 20
-        if y + 20 > (self.height / 2) * -1:
+        if y - 50 > (self.height/ 2) * -1:
             self.paddle.sety(y)
 
     ycor = property(fget=get_ycor)

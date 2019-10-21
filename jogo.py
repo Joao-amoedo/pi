@@ -92,3 +92,7 @@ class Jogo:
 
         while True:
             self.wn.update()
+
+    #TODO
+    def evoluir(self):
+        continue
