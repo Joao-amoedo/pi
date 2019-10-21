@@ -8,7 +8,6 @@ class Individuo:
         self.avaliacao = None
         self.lim_inf, self.lim_sup = lim_inf, lim_sup
 
-
     @staticmethod
     def crossover(i1, i2):
         """
@@ -23,7 +22,8 @@ class Individuo:
             else:
                 novo_cromo_1.append(cromo2)
                 novo_cromo_2.append(cromo1)
-        return Individuo(novo_cromo_1), Individuo(novo_cromo_2)
+        return (Individuo(novo_cromo_1, i1.lim_inf, i1.lim_sup),
+                Individuo(novo_cromo_2, i2.lim_inf, i2.lim_sup))
 
     def mutacao(self):
         p = randint(0, len(self.cromossomo) - 1)
@@ -33,7 +33,6 @@ class Individuo:
         novo_cromo = ''.join(novo_cromo)
         self.cromossomo[p] = novo_cromo
 
-    
     def calcula_valor_inteiro(self):
         inteiro = []
         for i, gene in enumerate(self.cromossomo):
