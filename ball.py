@@ -7,8 +7,8 @@ class Ball:
             self,
             wn,
             jogo,
-            padle_left,
-            padle_right,
+            paddle_left,
+            paddle_right,
             color='white',
     ):
         self.ball = Turtle()
@@ -24,8 +24,8 @@ class Ball:
         self.wn = wn
         self.width = wn.window_width()
         self.height = wn.window_height()
-        self.padle_left = padle_left
-        self.padle_right = padle_right
+        self.paddle_left = paddle_left
+        self.paddle_right = paddle_right
         self.jogo = jogo
 
     def get_xcor(self):
@@ -62,25 +62,25 @@ class Ball:
         if self.xcor < (-1 * (self.width / 2)) + 10:
             self.jogo.vitoria('direita')
 
-    def check_colision_padle_right(self):
+    def check_colision_paddle_right(self):
         speed = 0.2
-        if (self.xcor > self.padle_right.xcor - 20) and (
-                self.ycor <= self.padle_right.ycor + 50
-                and self.ycor >= self.padle_right.ycor - 50):
+        if (self.xcor > self.paddle_right.xcor - 20) and (
+                self.ycor <= self.paddle_right.ycor + 50
+                and self.ycor >= self.paddle_right.ycor - 50):
             self.ball.dx *= -1
-            self.ball.goto(self.padle_right.xcor - 25, self.ycor)
+            self.ball.goto(self.paddle_right.xcor - 25, self.ycor)
             self.ball.dx -= speed
             self.ball.dy -= speed
             return True
 
-    def check_colison_padle_left(self):
+    def check_colison_paddle_left(self):
         speed = 0.2
-        if (self.xcor <= self.padle_left.xcor + 20) and (
-                self.ycor <= self.padle_left.ycor + 50
-                and self.ycor >= self.padle_left.ycor - 50):
+        if (self.xcor <= self.paddle_left.xcor + 20) and (
+                self.ycor <= self.paddle_left.ycor + 50
+                and self.ycor >= self.paddle_left.ycor - 50):
             self.ball.dx *= -1
 
-            self.ball.goto(self.padle_left.xcor + 25, self.ycor)
+            self.ball.goto(self.paddle_left.xcor + 25, self.ycor)
             self.ball.dx += speed
             self.ball.dy += speed
             return True

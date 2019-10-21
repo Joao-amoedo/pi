@@ -15,40 +15,40 @@ class Jogo:
     def jogar(self):
         self.clear_screen()
 
-        padle_left = Paddle(self.wn, 'white', 'left')
-        padle_right = Paddle(self.wn, 'white', 'right')
+        paddle_left = Paddle(self.wn, 'white', 'left')
+        paddle_right = Paddle(self.wn, 'white', 'right')
 
         score1, score2 = 0, 0
         scores = Write('Jogador 1: {} \t Jogador 2: {}'.format(score1, score2),
                        (0, 260),
                        align='center')
 
-        ball = Ball(self.wn, self, padle_left, padle_right)
+        ball = Ball(self.wn, self, paddle_left, paddle_right)
         self.wn.listen()
 
-        self.wn.onkeypress(padle_left.move_up, 'w')
-        self.wn.onkeypress(padle_left.move_down, 's')
-        self.wn.onkeypress(padle_right.move_up, 'Up')
-        self.wn.onkeypress(padle_right.move_down, 'Down')
+        self.wn.onkeypress(paddle_left.move_up, 'w')
+        self.wn.onkeypress(paddle_left.move_down, 's')
+        self.wn.onkeypress(paddle_right.move_up, 'Up')
+        self.wn.onkeypress(paddle_right.move_down, 'Down')
         while True:
             self.wn.update()
             ball.setxy()
             ball.check_border()
-            if ball.check_colision_padle_right():
+            if ball.check_colision_paddle_right():
                 score1 += 100
                 scores.clear()
                 scores.opcao.write('Jogador 1: {} \t Jogador 2: {}'.format(
                     score1, score2),
-                                   font=('Courrier', 14, 'normal'),
-                                   align='center')
+                    font=('Courrier', 14, 'normal'),
+                    align='center')
 
-            if ball.check_colison_padle_left():
+            if ball.check_colison_paddle_left():
                 score2 += 100
                 scores.clear()
                 scores.opcao.write('Jogador 1: {} \t Jogador 2: {}'.format(
                     score1, score2),
-                                   font=('Courrier', 14, 'normal'),
-                                   align='center')
+                    font=('Courrier', 14, 'normal'),
+                    align='center')
 
     def clear_screen(self):
         self.wn.clear()
@@ -93,6 +93,3 @@ class Jogo:
         while True:
             self.wn.update()
 
-    #TODO
-    def evoluir(self):
-        continue
