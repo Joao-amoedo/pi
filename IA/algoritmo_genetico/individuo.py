@@ -7,7 +7,7 @@ class Individuo:
         self.cromossomo = cromossomo
         self.avaliacao = None
         self.lim_inf, self.lim_sup = lim_inf, lim_sup
-
+        self.avaliacao = None
     @staticmethod
     def crossover(i1, i2):
         """
