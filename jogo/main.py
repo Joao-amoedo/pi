@@ -1,8 +1,8 @@
 import numpy as np
 from turtle import Turtle, Screen
 from jogo import Jogo
-from IA.algoritmo_genetico import populacao
-from IA.rede_neural import Rede
+from ia.algoritmo_genetico import populacao
+from ia.rede_neural import Rede
 
 def main():
     rede = Rede(7)

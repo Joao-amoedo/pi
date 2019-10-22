@@ -57,10 +57,10 @@ class Ball:
             self.ball.dy = self.ball.dy * -1
 
         if self.xcor > (self.width / 2) - 10:
-            self.jogo.vitoria('esquerda')
+            return 'left'
 
         if self.xcor < (-1 * (self.width / 2)) + 10:
-            self.jogo.vitoria('direita')
+            return 'right'
 
     def check_colision_paddle_right(self):
         speed = 0.2
