@@ -25,6 +25,16 @@ class Individuo:
         return (Individuo(novo_cromo_1, i1.lim_inf, i1.lim_sup),
                 Individuo(novo_cromo_2, i2.lim_inf, i2.lim_sup))
 
+    @staticmethod
+    def gera_individuo(base_cromossomo, lim_inf, lim_sup):
+        novo_cromossomo = []
+        for base in base_cromossomo:
+            cromossomo = ''
+            for qtd in range(base):
+                cromossomo += '1' if random() > 0.5 else '0'
+            novo_cromossomo.append(cromossomo)
+        return Individuo(novo_cromossomo, lim_inf, lim_sup)
+
     def mutacao(self):
         p = randint(0, len(self.cromossomo) - 1)
         novo_cromo = list(self.cromossomo[p])

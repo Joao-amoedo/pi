@@ -17,8 +17,8 @@ class Ball:
         self.ball.color(color)
         self.ball.penup()
         self.ball.goto(0, 0)
-        self.dx_ini = 1
-        self.dy_ini = 1
+        self.dx_ini = 1 if random() > 0.5 else -1
+        self.dy_ini = 1 if random() > 0.5 else -1
         self.ball.dx = self.dx_ini
         self.ball.dy = self.dy_ini
         self.wn = wn

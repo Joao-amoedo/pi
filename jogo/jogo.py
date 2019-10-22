@@ -92,4 +92,3 @@ class Jogo:
 
         while True:
             self.wn.update()
-
