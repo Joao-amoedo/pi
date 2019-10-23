@@ -8,6 +8,7 @@ class Ball:
             wn,
             paddle_left,
             paddle_right,
+            goto,
             color='white',
     ):
         self.ball = Turtle()
@@ -15,7 +16,7 @@ class Ball:
         self.ball.shape('square')
         self.ball.color(color)
         self.ball.penup()
-        self.ball.goto(0, 0)
+        self.ball.goto(goto)
         self.dx_ini = 1 if random() > 0.5 else -1
         self.dy_ini = 1 if random() > 0.5 else -1
         self.ball.dx = self.dx_ini
