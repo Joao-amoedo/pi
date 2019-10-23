@@ -6,7 +6,6 @@ class Ball:
     def __init__(
             self,
             wn,
-            jogo,
             paddle_left,
             paddle_right,
             color='white',
@@ -26,7 +25,6 @@ class Ball:
         self.height = wn.window_height()
         self.paddle_left = paddle_left
         self.paddle_right = paddle_right
-        self.jogo = jogo
 
     def get_xcor(self):
         return self.ball.xcor()
@@ -44,8 +42,6 @@ class Ball:
 
     def setxy(self):
         self.ball.goto((self.xcor + self.dx, self.ycor + self.dy))
-        #self.setx()
-        #self.sety()
 
     def check_border(self):
         if self.ycor > (self.height / 2) - 10:

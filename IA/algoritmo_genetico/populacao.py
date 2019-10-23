@@ -18,11 +18,19 @@ class Populacao:
                                            self.lim_sup)
             self.populacao.append(ind)
 
+    def seleciona(self):
+        self.populacao = sorted(self.populacao, key=lambda x: x.avaliacao)
+        selecao = random()
+        soma = 0
+        soma_av = sum([i.avaliacao for i in self])
+
+        for idx, ind in enumerate(self.populacao):
+            soma += ind.avaliacao / soma_av
+            if soma >= selecao:
+                return ind
+
     def __getitem__(self, i):
         return self.populacao[i]
 
     def __len__(self):
         return len(self.populacao)
-
-
-

@@ -35,7 +35,7 @@ class Jogo:
                        (0, 260),
                        align='center')
 
-        ball = Ball(self.wn, self, paddle_left, paddle_right)
+        ball = Ball(self.wn, paddle_left, paddle_right)
         if redes:
             ball.dx = 4
             ball.yx = 4
@@ -52,10 +52,13 @@ class Jogo:
             vitoria = ball.check_border()
             if vitoria:
                 if redes:
-                    return score1, score2
+                    return [
+                        score1 if score1 > 0 else 50,
+                        score2 if score2 > 0 else 50
+                    ]
                 else:
-                    self.vitoria(vitoria)                
-            
+                    self.vitoria(vitoria)
+
             if redes:
                 xcor = ball.xcor
                 ycor = ball.ycor
@@ -72,10 +75,14 @@ class Jogo:
                 paddle_right_xcor = paddle_right.xcor
                 paddle_right_ycor = paddle_right.ycor
 
-                inputs_1 = [xcor, ycor, dxball, dyball, dir_x_ball,
-                            dir_y_ball, paddle_left_xcor, paddle_left_ycor]
-                inputs_2 = [xcor, ycor, dxball, dyball, dir_x_ball,
-                            dir_y_ball, paddle_right_xcor, paddle_right_ycor]
+                inputs_1 = [
+                    xcor, ycor, dxball, dyball, dir_x_ball, dir_y_ball,
+                    paddle_left_xcor, paddle_left_ycor
+                ]
+                inputs_2 = [
+                    xcor, ycor, dxball, dyball, dir_x_ball, dir_y_ball,
+                    paddle_right_xcor, paddle_right_ycor
+                ]
 
                 self._movimentos_rede(rede1, paddle_left, inputs_1)
                 self._movimentos_rede(rede2, paddle_right, inputs_2)
@@ -102,8 +109,8 @@ class Jogo:
         scores.clear()
         scores.opcao.write('Jogador 1: {} \t Jogador 2: {}'.format(
             score1, score2),
-            font=('Courrier', 14, 'normal'),
-            align='center')
+                           font=('Courrier', 14, 'normal'),
+                           align='center')
 
     def clear_screen(self):
         self.wn.clear()
@@ -158,7 +165,7 @@ class Jogo:
         lim_inf = [-2 for i in range(len(base))]
         lim_sup = [2 for i in range(len(base))]
 
-        self.pop = Populacao(100, base, lim_inf, lim_sup)
+        self.pop = Populacao(self.qtd_individuos, base, lim_inf, lim_sup)
         self.pop.gera_populacao_inicial()
 
     def evoluir(self):
@@ -176,14 +183,14 @@ class Jogo:
         shapes = [cam.shape for cam in rede1 or rede2]
         divisor_camadas = [np.prod(shape) for shape in shapes]
         for ind1, ind2 in zip(self.pop[::2], self.pop[1::2]):
-            camada1_1 = np.array(
-                ind1.real[:divisor_camadas[0]]).reshape(shapes[0])
-            camada2_1 = np.array(
-                ind1.real[divisor_camadas[0]:]).reshape(shapes[1])
-            camada1_2 = np.array(
-                ind2.real[:divisor_camadas[0]]).reshape(shapes[0])
-            camada2_2 = np.array(
-                ind2.real[divisor_camadas[0]:]).reshape(shapes[1])
+            camada1_1 = np.array(ind1.real[:divisor_camadas[0]]).reshape(
+                shapes[0])
+            camada2_1 = np.array(ind1.real[divisor_camadas[0]:]).reshape(
+                shapes[1])
+            camada1_2 = np.array(ind2.real[:divisor_camadas[0]]).reshape(
+                shapes[0])
+            camada2_2 = np.array(ind2.real[divisor_camadas[0]:]).reshape(
+                shapes[1])
 
             rede1.camadas[0] = camada1_1
             rede1.camadas[1] = camada2_1
@@ -191,4 +198,5 @@ class Jogo:
             rede2.camadas[0] = camada1_2
             rede2.camadas[1] = camada2_2
 
-            self.jogar((rede1, rede2))
+            ind1.avaliacao, ind2.avaliacao = self.jogar((rede1, rede2))
+        self.menu()
