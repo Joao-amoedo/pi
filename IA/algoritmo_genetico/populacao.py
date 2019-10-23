@@ -29,6 +29,31 @@ class Populacao:
             if soma >= selecao:
                 return ind
 
+    def gera_nova_populacao(self):
+        nova_populacao = []
+        while len(nova_populacao) < len(self):
+            p1 = self.seleciona_individuos()
+            p2 = self.seleciona_individuos()
+
+            while p1 == p2:
+                p2 = self.seleciona_individuos()
+
+            f1, f2 = Individuo.crossover(p1, p2)
+
+            if random() < self.prob_mutacao:
+                f1.mutacao()
+            if random() < self.prob_mutacao:
+                f2.mutacao()
+
+            nova_populacao.append(f1)
+            nova_populacao.append(f2)
+
+        while len(nova_populacao) > len(self):
+            nova_populacao.remove(nova_populacao[randint(
+                0, len(nova_populacao))])
+
+        self.populacao = nova_populacao
+
     def __getitem__(self, i):
         return self.populacao[i]
 
