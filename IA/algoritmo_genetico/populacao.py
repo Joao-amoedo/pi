@@ -1,5 +1,5 @@
 from individuo import Individuo
-from random import random
+from random import random, randint
 
 
 class Populacao:
@@ -17,6 +17,7 @@ class Populacao:
         self.populacao = []
         self.geracao = 0
         self.prob_mutacao = prob_mutacao
+        self.gera_populacao_inicial()
 
     def gera_populacao_inicial(self):
         for i in range(self.quantidade):
@@ -35,7 +36,7 @@ class Populacao:
             if soma >= selecao:
                 return ind
 
-    def gera_nova_populacao(self):
+    def gera_nova_populacao(self, shapes = None):
         self.populacao = sorted(self.populacao, key=lambda x: x.avaliacao) 
         nova_populacao = []
         while len(nova_populacao) < len(self):
@@ -45,7 +46,10 @@ class Populacao:
             while p1 == p2:
                 p2 = self.seleciona()
 
-            f1, f2 = Individuo.crossover(p1, p2)
+            if shapes:
+                f1, f2 = Individuo.crossover_rede(p1, p2, shapes)
+            else:
+                f1, f2 = Individuo.crossover(p1, p2)
 
             if random() < self.prob_mutacao:
                 f1.mutacao()

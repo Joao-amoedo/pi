@@ -1,5 +1,5 @@
 from random import random, randint
-
+import numpy as np
 
 class Individuo:
     def __init__(self, cromossomo, lim_inf, lim_sup):
@@ -25,7 +25,44 @@ class Individuo:
                 novo_cromo_2.append(cromo1)
         return (Individuo(novo_cromo_1, i1.lim_inf, i1.lim_sup),
                 Individuo(novo_cromo_2, i2.lim_inf, i2.lim_sup))
+        
+    @staticmethod
+    def crossover_rede(i1, i2, shapes):
+        novo_cromo_1 = []
+        novo_cromo_2 = []
+        prod_shapes = [np.prod(shape) for shape in shapes]
+        sum_shapes = 0
+        for i in range(len(shapes)):
+            n_cro_1 = np.array([])
+            n_cro_2 = np.array([])
+            cromo1 = i1[sum_shapes:prod_shapes[i] + sum_shapes]
+            cromo2 = i2[sum_shapes:prod_shapes[i] + sum_shapes]
+                       
+            cromo1 = np.array(cromo1).reshape(shapes[i])
+            cromo2 = np.array(cromo2).reshape(shapes[i])
 
+            for j in range(cromo1.shape[1]):
+                if random() < 0.5:
+                    if len(n_cro_1) == 0:
+                        n_cro_1 = cromo1[:,j].reshape(-1,1)
+                        n_cro_2 = cromo2[:,j].reshape(-1,1)
+                    else:
+                        n_cro_1 = np.append(n_cro_1, cromo1[:,j].reshape(-1,1), axis = 1)
+                        n_cro_2 = np.append(n_cro_2, cromo2[:,j].reshape(-1,1), axis = 1)
+                else:
+                    if len(n_cro_1) == 0:
+                        n_cro_1 = cromo2[:,j].reshape(-1,1)
+                        n_cro_2 = cromo1[:,j].reshape(-1,1)
+                    else:
+                        n_cro_1 = np.append(n_cro_1, cromo2[:,j].reshape(-1,1), axis = 1)
+                        n_cro_2 = np.append(n_cro_2, cromo1[:,j].reshape(-1,1), axis = 1)
+                
+            novo_cromo_1 += [cro[0] for cro in n_cro_1.reshape(-1,1)]
+            novo_cromo_2 += [cro[0] for cro in n_cro_2.reshape(-1,1)]
+        return (Individuo(novo_cromo_1, i1.lim_inf, i1.lim_sup),
+                Individuo(novo_cromo_2, i2.lim_inf, i2.lim_sup))
+        
+        
     @staticmethod
     def gera_individuo(base_cromossomo, lim_inf, lim_sup):
         novo_cromossomo = []
