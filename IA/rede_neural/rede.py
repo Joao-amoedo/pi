@@ -50,7 +50,20 @@ class Rede:
                                             self.bias[1:]):
                 dot = funcao(np.dot(dot, camada) + bias)
         return dot
-
+    
+    def get_shapes(self):
+        return [camada.shape for camada in self.camadas]
+    
+    def get_prod_shapes(self):
+        return [np.prod(shape) for shape in self.shapes]
+    
+    def get_sum_shapes(self):
+        return sum(self.prod_shapes)
+    
+    prod_shapes = property(fget=get_prod_shapes)
+    sum_shapes = property(fget=get_sum_shapes)
+    shapes = property(fget=get_shapes)
+    
     def __getitem__(self, i):
         return self.camadas[i]
 
