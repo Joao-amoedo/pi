@@ -1,4 +1,6 @@
-import os
-import sys
+from os.path import dirname
+from sys import path
 
-sys.path.append(os.path.dirname(__file__))
+path.append(dirname(__file__))
+
+from jogo import jogo
